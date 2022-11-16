@@ -1,0 +1,26 @@
+#calculator-grid {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-rows: 80px 30px 30px 30px 30px 30px;
+  width: 400px;
+  border: 1px solid gray;
+}
+
+.screen {
+  grid-column: 1 / 6;
+  border: 1px solid gray;
+  display: grid;
+  text-align: right;
+  padding: 5px;
+}
+
+.grid-item {
+  text-align: center;
+  border: 1px solid gray;
+}
+
+.equals {
+  grid-column: 5 / 6;
+  grid-row: 5 / span 2;
+}
