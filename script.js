@@ -1,14 +1,34 @@
 /*
 ### TODOS
+- [ ] Add numbers > 9 as one number, not several separate digits
+-------------
+while the button clicked is a number, keep appending it to current number entry
+if user clicks number:
+  if previous entry in numbersOperators is a number:  
+    append it
+  else 
+    add it to numbersOperators
+-------------
 - [ ] Add correct characters for x**2, mod, squareroot to calculatorGrid.
 - [ ] Name the methods in calculator the same as the characters for operations on calculatorGrid
 - [ ] Evaluate if user hits Enter
+- [ ] Show click effect on each button (CSS)
+- [ ] Add Pi
+- [ ] Add % calc
+- [ ] Break out of while loop in calculator.evaluate() if expression is faulty
 */
 
 /* 
 STRATEGY 1
 
-Event listener on calculator
+Event listener on calculator:
+If click on number or operator (except =):
+  Append number/operator to text in lower text field
+If click on =: // upon calling calculator.evaluate()
+  Display previous calculation in top text field
+  Display result in bottom text field
+If click on 'Clear':
+  Clear bottom text field
 
 Calculator object:
   // methods:
@@ -77,7 +97,8 @@ click =
   // evaluate
 */
 
-let calculationParts = [];
+let numbersOperators = [];
+let operations = ["+", "-", "*", "/"];
 
 function Calculator() {
   this["+"] = function(a, b) {
@@ -101,33 +122,69 @@ function Calculator() {
   this["sqrt(x)"] = function(a) {
     return Math.sqrt(a);
   };
-  this.evaluate = function(calculationParts) {
-    if (calculationParts.length > 1) {
-      if (calculationParts[0] === "sqrt(x)" && isNaN(calculationParts[1]) === false) {
-        let operation = calculationParts[0];
-        let number = calculationParts[1];
-        let result = this[operation](number);
-        console.log(`operation: ${operation} of ${number} = ${result}`);
-        calculationParts.splice(0, 2);
-        calculationParts.unshift(result);
-        console.log("calculationParts after splicing first two elements and adding result: ", calculationParts);
-        return result;
-      } // === CONTINUE HERE ===
+  this["%"] = function(a, b) {
+    return a/100 * b;
+  };
+  this.evaluate = function(numbersOperators) {
+    let operator, number, result;
+    
+    while (numbersOperators.length > 1) {
+      
+      // Square root
+      // Sqrt(x) symbol
+      if (numbersOperators[0] === "sqrt(x)" && isNaN(numbersOperators[1]) === false) {
+        result = this[numbersOperators[0]](numbersOperators[1]);
+        console.log(`operator: ${numbersOperators[0]} of ${numbersOperators[1]} = ${result}`);
+        numbersOperators.splice(0, 2);
+        numbersOperators.unshift(result);
+        console.log("numbersOperators after splicing first two elements and adding result: ", numbersOperators);
+      // x²
+      } else if (isNaN(numbersOperators[0]) === false && numbersOperators[1] ===  "x**2") {
+        result = this[numbersOperators[1]](numbersOperators[0]);
+        console.log(`result of x²: ${result}`);
+        numbersOperators.splice(0, 2);
+        numbersOperators.unshift(result);
+      // Percentage calculation
+      } else if (
+        // number % * number
+        !isNaN(numbersOperators[0]) &&
+        !isNaN(numbersOperators[3]) &&
+        numbersOperators[1] === "%" &&
+        numbersOperators[2] === "*"
+      ) {
+        let percent = numbersOperators[1];
+        result = this[percent](numbersOperators[0], numbersOperators[3]);
+        console.log(`Result of ${numbersOperators[0]} % * ${numbersOperators[3]} = ${result}`);
+        numbersOperators.splice(0, 4);
+        numbersOperators.unshift(result);
+
+      // Addition, subtraction, multiplication, division
+      } else if (!isNaN(numbersOperators[0]) && !isNaN(numbersOperators[2]) && operations.includes(numbersOperators[1])) {
+        operator = numbersOperators[1];
+        result = this[operator](numbersOperators[0], numbersOperators[2]);
+        numbersOperators.splice(0, 3);
+        numbersOperators.unshift(result);
+      } else {
+        console.log("Faulty expression");
+      }
     }
+
+    return result;
   }
 }
 
 let calculator = new Calculator();
 
 function calculatorCallback(event) {
-  let clickedValue = event.target.innerText;
+  let clickedValue = event.target.innerText.trim();
   if (clickedValue === "=") {
     // Evaluate
-    console.log("calculationParts: ", calculationParts);
-    let result = calculator.evaluate(calculationParts);
+    console.log("numbersOperators: ", numbersOperators);
+    let result = calculator.evaluate(numbersOperators);
+    console.log("result: ", result);
   } else if (isNaN(clickedValue)) {
-    calculationParts.push(clickedValue);
+    numbersOperators.push(clickedValue);
   } else {
-    calculationParts.push(+clickedValue);
+    numbersOperators.push(+clickedValue);
   }
 }
