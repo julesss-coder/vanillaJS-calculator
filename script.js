@@ -1,3 +1,5 @@
+/* ======== VERSION 1 ==================
+
 /*
 ### TODOS
 - [ ] Add numbers > 9 as one number, not several separate digits
@@ -82,109 +84,164 @@ if click on =/ hit enter:
 
 */
 
-let calculatorGrid = document.getElementById('calculator-grid');
-calculatorGrid.addEventListener('click', calculatorCallback);
+// let calculatorGrid = document.getElementById('calculator-grid');
+// calculatorGrid.addEventListener('click', calculatorCallback);
 
-/*
+// /*
 
-click 1
-calculation = [1, ]
-click +
-calculation = [1, +]
-click 2
-calculation = [1, +, 2]
-click =
-  // evaluate
-*/
+// click 1
+// calculation = [1, ]
+// click +
+// calculation = [1, +]
+// click 2
+// calculation = [1, +, 2]
+// click =
+//   // evaluate
+// */
 
-let numbersOperators = [];
-let operations = ["+", "-", "*", "/"];
+// let numbersOperators = [];
+// let operations = ["+", "-", "*", "/"];
 
-function Calculator() {
-  this["+"] = function(a, b) {
-    return a + b;
-  };
-  this["-"] = function(a, b) {
-    return a - b;
-  };
-  this["*"] = function(a, b) {
-    return a * b;
-  };
-  this["/"] = function(a, b) {
-    return a / b;
-  };
-  this["mod"] = function(a, b) {
-    return a % b;
-  };
-  this["x**2"] = function(a) {
-    return a * a;
-  };
-  this["sqrt(x)"] = function(a) {
-    return Math.sqrt(a);
-  };
-  this["%"] = function(a, b) {
-    return a/100 * b;
-  };
-  this.evaluate = function(numbersOperators) {
-    let operator, number, result;
+// function Calculator() {
+//   this["+"] = function(a, b) {
+//     return a + b;
+//   };
+//   this["-"] = function(a, b) {
+//     return a - b;
+//   };
+//   this["*"] = function(a, b) {
+//     return a * b;
+//   };
+//   this["/"] = function(a, b) {
+//     return a / b;
+//   };
+//   this["mod"] = function(a, b) {
+//     return a % b;
+//   };
+//   this["x**2"] = function(a) {
+//     return a * a;
+//   };
+//   this["sqrt(x)"] = function(a) {
+//     return Math.sqrt(a);
+//   };
+//   this["%"] = function(a, b) {
+//     return a/100 * b;
+//   };
+//   this.evaluate = function(numbersOperators) {
+//     let operator, number, result;
     
-    while (numbersOperators.length > 1) {
+//     while (numbersOperators.length > 1) {
       
-      // Square root
-      // Sqrt(x) symbol
-      if (numbersOperators[0] === "sqrt(x)" && isNaN(numbersOperators[1]) === false) {
-        result = this[numbersOperators[0]](numbersOperators[1]);
-        console.log(`operator: ${numbersOperators[0]} of ${numbersOperators[1]} = ${result}`);
-        numbersOperators.splice(0, 2);
-        numbersOperators.unshift(result);
-        console.log("numbersOperators after splicing first two elements and adding result: ", numbersOperators);
-      // x²
-      } else if (isNaN(numbersOperators[0]) === false && numbersOperators[1] ===  "x**2") {
-        result = this[numbersOperators[1]](numbersOperators[0]);
-        console.log(`result of x²: ${result}`);
-        numbersOperators.splice(0, 2);
-        numbersOperators.unshift(result);
-      // Percentage calculation
-      } else if (
-        // number % * number
-        !isNaN(numbersOperators[0]) &&
-        !isNaN(numbersOperators[3]) &&
-        numbersOperators[1] === "%" &&
-        numbersOperators[2] === "*"
-      ) {
-        let percent = numbersOperators[1];
-        result = this[percent](numbersOperators[0], numbersOperators[3]);
-        console.log(`Result of ${numbersOperators[0]} % * ${numbersOperators[3]} = ${result}`);
-        numbersOperators.splice(0, 4);
-        numbersOperators.unshift(result);
+//       // Square root
+//       // Sqrt(x) symbol
+//       if (numbersOperators[0] === "sqrt(x)" && isNaN(numbersOperators[1]) === false) {
+//         result = this[numbersOperators[0]](numbersOperators[1]);
+//         console.log(`operator: ${numbersOperators[0]} of ${numbersOperators[1]} = ${result}`);
+//         numbersOperators.splice(0, 2);
+//         numbersOperators.unshift(result);
+//         console.log("numbersOperators after splicing first two elements and adding result: ", numbersOperators);
+//       // x²
+//       } else if (isNaN(numbersOperators[0]) === false && numbersOperators[1] ===  "x**2") {
+//         result = this[numbersOperators[1]](numbersOperators[0]);
+//         console.log(`result of x²: ${result}`);
+//         numbersOperators.splice(0, 2);
+//         numbersOperators.unshift(result);
+//       // Percentage calculation
+//       } else if (
+//         // number % * number
+//         !isNaN(numbersOperators[0]) &&
+//         !isNaN(numbersOperators[3]) &&
+//         numbersOperators[1] === "%" &&
+//         numbersOperators[2] === "*"
+//       ) {
+//         let percent = numbersOperators[1];
+//         result = this[percent](numbersOperators[0], numbersOperators[3]);
+//         console.log(`Result of ${numbersOperators[0]} % * ${numbersOperators[3]} = ${result}`);
+//         numbersOperators.splice(0, 4);
+//         numbersOperators.unshift(result);
 
-      // Addition, subtraction, multiplication, division
-      } else if (!isNaN(numbersOperators[0]) && !isNaN(numbersOperators[2]) && operations.includes(numbersOperators[1])) {
-        operator = numbersOperators[1];
-        result = this[operator](numbersOperators[0], numbersOperators[2]);
-        numbersOperators.splice(0, 3);
-        numbersOperators.unshift(result);
-      } else {
-        console.log("Faulty expression");
-      }
-    }
+//       // Addition, subtraction, multiplication, division
+//       } else if (!isNaN(numbersOperators[0]) && !isNaN(numbersOperators[2]) && operations.includes(numbersOperators[1])) {
+//         operator = numbersOperators[1];
+//         result = this[operator](numbersOperators[0], numbersOperators[2]);
+//         numbersOperators.splice(0, 3);
+//         numbersOperators.unshift(result);
+//       } else {
+//         console.log("Faulty expression");
+//       }
+//     }
 
-    return result;
-  }
-}
+//     return result;
+//   }
+// }
 
-let calculator = new Calculator();
+// let calculator = new Calculator();
 
-function calculatorCallback(event) {
-  let clickedValue = event.target.innerText.trim();
-  if (clickedValue === "=") {
-    // Evaluate
-    console.log("numbersOperators: ", numbersOperators);
-    let result = calculator.evaluate(numbersOperators);
-    console.log("result: ", result);
-  } else if (isNaN(clickedValue)) {
-    numbersOperators.push(clickedValue);
-  } else {
-    numbersOperators.push(+clickedValue);
-  }
-}
+// function calculatorCallback(event) {
+//   let clickedValue = event.target.innerText.trim();
+//   if (clickedValue === "=") {
+//     // Evaluate
+//     console.log("numbersOperators: ", numbersOperators);
+//     let result = calculator.evaluate(numbersOperators);
+//     console.log("result: ", result);
+//   } else if (isNaN(clickedValue)) {
+//     numbersOperators.push(clickedValue);
+//   } else {
+//     numbersOperators.push(+clickedValue);
+//   }
+// }
+
+
+/* =============== END OF VERSION ONE ============= */
+
+// ============== VERSION 2 =======================
+
+// Elements of calculator
+let previousOperation = document.querySelector('.js-previous-operation');
+let currentOperation = document.querySelector('.js-current-operation');
+const operatorButtons = document.querySelectorAll('.js-operator');
+const numberButtons = document.querySelectorAll('.js-number');
+const allClearButton = document.querySelector('.js-all-clear');
+const clearButton = document.querySelector('.js-clear');
+// what event listener to add to parensButtons?
+const parensButtons = document.querySelectorAll('.js-parens');
+const equalsButton = document.querySelector('.js-equals');
+const percentButton = document.querySelector('.js-percent');
+const piButton = document.querySelector('.js-pi');
+
+
+// Event listeners
+// Handle sqrt(x)
+// Handle mod
+operatorButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    currentOperation.textContent += ` ${event.target.textContent} `;
+  })
+});
+
+numberButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    currentOperation.textContent += ` ${event.target.textContent} `;
+  })
+});
+
+allClearButton.addEventListener('click', () => {
+    currentOperation.textContent = '';
+});
+
+clearButton.addEventListener('click', () => {
+  console.log(currentOperation.textContent);
+  currentOperation.textContent = currentOperation.textContent.toString().slice(0, -2);
+})
+
+equalsButton.addEventListener('click', () => {
+  currentOperation.textContent += ' = ';
+});
+
+percentButton.addEventListener('click', () => {
+  currentOperation.textContent += ' % ';
+});
+
+piButton.addEventListener('click', () => {
+  currentOperation.textContent += ` ${Math.PI} `;
+});

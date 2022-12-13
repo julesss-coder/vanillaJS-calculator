@@ -10,33 +10,35 @@
 <body>
   <div id="calculator-grid">
     <div class="screen">
-      <div class="previous-calculations">previous-calculations</div>
-      <div class="current-calculation">current-calculation</div>
+      <div class="js-previous-operation"></div>
+      <div class="js-current-operation"></div>
     </div>
-      <div class="grid-item">C</div>
-      <div class="grid-item">(</div>
-      <div class="grid-item">)</div>
-      <div class="grid-item">mod</div>
-      <div class="grid-item">Pi</div>
-      <div class="grid-item">7</div>
-      <div class="grid-item">8</div>
-      <div class="grid-item">9</div>
-      <div class="grid-item">/</div>
-      <div class="grid-item">sqrt(x)</div>
-      <div class="grid-item">4</div>
-      <div class="grid-item">5</div>
-      <div class="grid-item">6</div>
-      <div class="grid-item">*</div>
-      <div class="grid-item">x**2</div>
-      <div class="grid-item">1</div>
-      <div class="grid-item">2</div>
-      <div class="grid-item">3</div>
-      <div class="grid-item">-</div>
-      <div class="grid-item equals">=</div>
-      <div class="grid-item">0</div>
-      <div class="grid-item">,</div>
-      <div class="grid-item">%</div>
-      <div class="grid-item">+</div>
+    <!-- Class names prefixed with js are used as JavaScript selectors, class names without js are CSS selectors -->
+      <div class="grid-item js-all-clear">AC</div>
+      <div class="grid-item js-parens">(</div>
+      <div class="grid-item js-parens">)</div>
+      <div class="grid-item js-operator">mod</div>
+      <div class="grid-item js-pi">Pi</div>
+      <div class="grid-item js-number">7</div>
+      <div class="grid-item js-number">8</div>
+      <div class="grid-item js-number">9</div>
+      <div class="grid-item js-operator">/</div>
+      <div class="grid-item js-operator">sqrt(x)</div>
+      <div class="grid-item js-number">4</div>
+      <div class="grid-item js-number">5</div>
+      <div class="grid-item js-number">6</div>
+      <div class="grid-item js-number">*</div>
+      <div class="grid-item js-operator">x**2</div>
+      <div class="grid-item js-number">1</div>
+      <div class="grid-item js-number">2</div>
+      <div class="grid-item js-number">3</div>
+      <div class="grid-item js-operator">-</div>
+      <div class="grid-item js-equals">=</div>
+      <div class="grid-item js-number">0</div>
+      <div class="grid-item js-number">,</div>
+      <div class="grid-item js-percent">%</div>
+      <div class="grid-item js-operator">+</div>
+      <div class="grid-item js-clear">C</div>
   </div>
 
   <script src="./script.js"></script>
