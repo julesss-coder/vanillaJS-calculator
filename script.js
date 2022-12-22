@@ -196,52 +196,94 @@ if click on =/ hit enter:
 
 // ============== VERSION 2 =======================
 
+
 // Elements of calculator
 let previousOperation = document.querySelector('.js-previous-operation');
 let currentOperation = document.querySelector('.js-current-operation');
 const operatorButtons = document.querySelectorAll('.js-operator');
 const numberButtons = document.querySelectorAll('.js-number');
+const functionButtons = document.querySelectorAll('.js-functions');
 const allClearButton = document.querySelector('.js-all-clear');
-const clearButton = document.querySelector('.js-clear');
+const deleteButton = document.querySelector('.js-clear-delete');
 // what event listener to add to parensButtons?
 const parensButtons = document.querySelectorAll('.js-parens');
 const equalsButton = document.querySelector('.js-equals');
 const percentButton = document.querySelector('.js-percent');
 const piButton = document.querySelector('.js-pi');
 
+let operand1 = '';
+let operand2 = '';
+let operator = '';
 
-// Event listeners
-// Handle sqrt(x)
-// Handle mod
-operatorButtons.forEach(button => {
-  button.addEventListener('click', (event) => {
-    currentOperation.textContent += ` ${event.target.textContent} `;
-  })
+// EVENT LISTENERS
+// exp: after running this code, each button with class .js-number has an event listener. Confidence: 40%. Reality: 90%.
+// exp: The event listener listens for click events and assigns the textContent of the button to the correct operand (operand1 if no operator chosen, operand2 if operator chosen). Confidence: 15%.
+// Reality: 50%. The event listener listens for click events and APPENDS (not assigns) the number to the correct operand. 90%.
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      if (!operator) {
+        operand1 += button.textContent;
+        console.log("operand1:", operand1);
+      } else if (operator) {
+        operand2 += button.textContent;
+        console.log("operand2: ", operand2);
+      }
+    });
 });
 
-numberButtons.forEach(button => {
-  button.addEventListener('click', (event) => {
-    currentOperation.textContent += ` ${event.target.textContent} `;
-  })
+// Exp.: After this code runs,
+// each operator button has an event listener. 80%.
+// Reality: 90%
+// The event listener assigns the clicked operator to `operator`, if `operator` is ''. Else, it returns. 40%
+// Reality: 80%.
+operatorButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    if (operand1 && !operator) {
+      if (button.textContent === "mod") {
+        operator = "%";      
+      } else {
+        operator = button.textContent;
+      }
+      console.log("operator: ", operator);
+    } else {
+      console.log(`operator already assigned (${operator}) or operand1 not yet assigned (${operand1}).`);
+      return;
+    }
+  });
+});
+
+equalsButton.addEventListener('click', () => {
+  console.log('run compute function');
 });
 
 allClearButton.addEventListener('click', () => {
-    currentOperation.textContent = '';
+  console.log('run clearAll');
 });
 
-clearButton.addEventListener('click', () => {
-  console.log(currentOperation.textContent);
-  currentOperation.textContent = currentOperation.textContent.toString().slice(0, -2);
-})
-
-equalsButton.addEventListener('click', () => {
-  currentOperation.textContent += ' = ';
+deleteButton.addEventListener('click', () => {
+  console.log('Run calculator.delete()');
 });
 
-percentButton.addEventListener('click', () => {
-  currentOperation.textContent += ' % ';
-});
 
-piButton.addEventListener('click', () => {
-  currentOperation.textContent += ` ${Math.PI} `;
-});
+// Calculator object
+let Calculator = function() {
+  this.currentOperation = ''; // brauche ich das wirklich?
+  this.operand1;
+  this.operand2;
+  this.operator;
+  this.result;
+
+  this.compute = function() {};
+  this.clearAll = function() {};
+  this.delete = function() {};
+  this.updateDisplay = function() {
+    // currentOperation.textContent = '123Test';
+  };
+  this.updateOperands = function() {};
+};
+
+let calculator = new Calculator();
+
+
+
+

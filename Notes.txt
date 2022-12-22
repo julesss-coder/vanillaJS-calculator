@@ -1,0 +1,51 @@
+### TODOS
+- [ ] Handle functions x**2 and sqrt(x)?
+
+
+1) Add data attributes to each category of operations.
+- operations
+- numbers (comma belongs here)
+- equals
+- delete
+- all-clear
+- previous operand
+- current operand
+
+2) Select the elements of the calculator
+const variables:
+- numberButtons
+- operatorButtons
+- equalsButton
+- deleteButton
+- allClearButton
+- previousOperandTextElement
+- currentOperandTextElement
+
+3) How do we store our information?
+class Calculator
+// Learn to program with classes in JS
+or an object with these properties:
+- previousOperandTextElement
+- currentOperandTextElement
+- clear()
+- delete()
+- appendNumber(number)
+- chooseOperation(operator)
+- compute() 
+- updateDisplay()
+
+4) What do we need to store?
+- previousOperandTextElement
+- currentOperandTextElement
+- operation 
+
+
+5)
+clear():
+- clear the three stored variables
+- call it when new calculation
+
+
+6) Add event listeners to buttons
+
+
